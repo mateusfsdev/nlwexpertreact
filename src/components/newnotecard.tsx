@@ -1,6 +1,6 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { X } from 'lucide-react'
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 
 
 
@@ -9,6 +9,10 @@ export function NewNote(){
 
   function handleStartEditor() {
     setShouldShowOnboarding(false)
+
+  }
+
+  function handleContentChange(event: ChangeEvent<HTMLTextAreaElement>) {
 
   }
 
@@ -43,7 +47,11 @@ export function NewNote(){
                     Comece <button className='font-medium text-yellow-400 hover:underline'>gravando uma nota </button> em auudio, ou se preferir <button onClick={handleStartEditor} className='font-medium text-yellow-400 hover:underline'>utilize apenas texto</button>
                   </p>
                 ) :(
-                  <p>editor</p>
+                  <textarea
+                    autoFocus
+                    className='text-sm leading-6 text-stone-400 bg-transparent resize-none flex-1 outline-none'
+                    onChange={handleContentChange}
+                  />
                 )}
               </div>
 
