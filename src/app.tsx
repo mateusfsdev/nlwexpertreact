@@ -21,10 +21,21 @@ export function App() {
 
       <div className='grid grid-cols-3 auto-rows-[250px] gap-6'>
         <NewNote />
-        <NoteCard />
-        <NoteCard />
-        <NoteCard />
-        <NoteCard />
+
+        <NoteCard note={{
+          date: new Date(),
+          content: 'hello world'
+        }}/>
+        <NoteCard note={{
+          date: new Date(),
+          content: 'segunda nota '
+        }}/>
+        <NoteCard note={{
+          date: new Date(),
+          content: 'semana passada nota '
+        }}/>
+
+
       </div>
     </div>
 
