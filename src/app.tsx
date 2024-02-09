@@ -1,4 +1,6 @@
 import logo from './assets/logo.svg'
+import { NewNote } from './components/newnotecard'
+import { NoteCard } from './components/notecards'
 
 //components react são funções que retorna html em formato JSX
 export function App() {
@@ -18,14 +20,13 @@ export function App() {
       <div className='h-px bg-stone-700' />
 
       <div className='grid grid-cols-3 auto-rows-[250px] gap-6'>
-        <div className='bg-stone-700 rounded-md'></div>
-        <div className='bg-stone-800 rounded-md'></div>
-        <div className='bg-stone-800 rounded-md'></div>
-
-
+        <NewNote />
+        <NoteCard />
+        <NoteCard />
+        <NoteCard />
+        <NoteCard />
       </div>
-
-      </div>
+    </div>
 
   )
 }
