@@ -13,6 +13,9 @@ export function NewNote(){
   }
 
   function handleContentChange(event: ChangeEvent<HTMLTextAreaElement>) {
+    if (event.target.value === '') {
+      setShouldShowOnboarding(true)
+    }
 
   }
 
