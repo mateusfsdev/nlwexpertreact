@@ -1,9 +1,17 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { X } from 'lucide-react'
+import { useState } from 'react'
 
 
 
 export function NewNote(){
+  const [shouldShowOnboarding, setShouldShowOnboarding] = useState(true)
+
+  function handleStartEditor() {
+    setShouldShowOnboarding(false)
+
+  }
+
   return(
     <Dialog.Root>
       <Dialog.DialogTrigger className=' bg-stone-700 flex flex-col rounded-md p-5 gap-3 text-left outline-none 
@@ -30,9 +38,13 @@ export function NewNote(){
                 <span className='text-sm font-medium text-stone-300'>
                   Adicionar nota
                 </span>
-                <p className='text-sm leading-6 text-stone-400'>
-                  Comece <button className='font-medium text-yellow-400 hover:underline'>gravando uma nota </button> em auudio, ou se preferir <button className='font-medium text-yellow-400 hover:underline'>utilize apenas texto</button>
-                </p>
+                {shouldShowOnboarding ? (
+                  <p className='text-sm leading-6 text-stone-400'>
+                    Comece <button className='font-medium text-yellow-400 hover:underline'>gravando uma nota </button> em auudio, ou se preferir <button onClick={handleStartEditor} className='font-medium text-yellow-400 hover:underline'>utilize apenas texto</button>
+                  </p>
+                ) :(
+                  <p>editor</p>
+                )}
               </div>
 
 
