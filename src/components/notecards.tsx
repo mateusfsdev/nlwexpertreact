@@ -28,7 +28,7 @@ export function NoteCard({note}: NoteCardProps) {
 
       <Dialog.DialogPortal>
           <Dialog.DialogOverlay className="inset-0 fixed bg-stone-950/60">
-            <Dialog.Content className="fixed left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 h-60vh max-w-[640px] w-full bg-stone-700 rounded-md flex flex-col aoutline-none">
+            <Dialog.Content className="fixed overflow-hidden left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 h-[60vh] max-w-[640px] w-full bg-stone-700 rounded-md flex flex-col aoutline-none">
               <div className="flex flex-1 flex-col gap-3 p-5 ">
                 <span className='text-sm font-medium text-stone-300'>
                   {formatDistanceToNow(note.date, {locale: ptBR, addSuffix: true})}
@@ -37,6 +37,14 @@ export function NoteCard({note}: NoteCardProps) {
                   {note.content}
                 </p>
               </div>
+
+
+              <button
+              type='button'
+              className="w-full bg-stone-800/40 py-4 outline-none text-center text-sm text-stone-300 font-medium
+              hover:bg-stone-800/50 group"> 
+                Deseja <span className="text-red-400 group-hover:font-bold group-hover:underline" >apagar esta nota</span>?
+              </button>
             </Dialog.Content>
         </Dialog.DialogOverlay>
       </Dialog.DialogPortal>
