@@ -21,6 +21,7 @@ export function NewNote(){
 
   function handleSaveNote(event: FormEvent) {
     event.preventDefault()
+    console.log(content)
     toast.success('Nota criada com sucesso!✨')
     
   }
