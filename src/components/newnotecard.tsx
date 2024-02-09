@@ -1,6 +1,8 @@
 export function NewNote(){
   return(
-    <div className='bg-stone-700 rounded-md p-5 space-y-3'>
+    <div className=' bg-stone-700 rounded-md p-5 space-y-3 outline-none 
+      hover:ring-2 hover:ring-yellow-500
+      focus-visible:ring-2 focus-visible:ring-yellow-500'>
       <span className='text-sm font-medium text-stone-200'>
         Adicionar nota
       </span>
