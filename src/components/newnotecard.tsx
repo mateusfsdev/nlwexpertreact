@@ -41,16 +41,18 @@ export function NewNote({ onNoteCreated }: NewNoteCardProps){
   }
 
   function handleStartRecord(){
-    setIsRecording(true)
-
+    
     const inSpeechRecognitionAPIAvaliable = "SpeechRecognition" in window
     || "webkitSpeechRecognition" in window
-
+    
     if(!inSpeechRecognitionAPIAvaliable) {
       alert('infelizmente seu navegador nao suporta tanta tecnologia assim para gravação ☠☠')
       return
     }
 
+    setIsRecording(true)
+    setShouldShowOnboarding(false)
+    
     const SpeechRecognitionAPI = window.SpeechRecognition || window.webkitSpeechRecognition
   
     const speechRecognition = new SpeechRecognitionAPI()
@@ -60,12 +62,16 @@ export function NewNote({ onNoteCreated }: NewNoteCardProps){
     speechRecognition.interimResults = true
 
     speechRecognition.onresult = (event) => {
-      console.log(event.results)
+      const transcription = Array.from(event.results).reduce((text, result) => {
+        return text.concat(result[0].transcript)
+      }, '')
+
+      setContent(transcription)  
 
     }
 
     speechRecognition.onerror = (event) => {
-      console.log(event)
+      console.error(event)
       }
 
       speechRecognition.start()
