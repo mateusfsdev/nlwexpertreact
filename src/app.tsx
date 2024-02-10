@@ -11,6 +11,16 @@ export function App() {
     {id: 2, date: new Date(), content: 'segunda nota'}
   ])
 
+  function onNoteCreated(content: string) {
+    const newNote ={
+      id: Math.random(),
+      date: new Date(),
+      content,
+    }
+
+    setNotes([newNote, ...notes])
+  }
+
   return (
     <div className='mx-auto max-w-6xl my-12 space-y-6'>
       <img src={logo} alt="Logo site'bloco de notas.voip'" />
@@ -27,7 +37,7 @@ export function App() {
       <div className='h-px bg-stone-700' />
 
       <div className='grid grid-cols-3 auto-rows-[250px] gap-6'>
-        <NewNote />
+        <NewNote onNoteCreated={onNoteCreated}/>
 
         {notes.map(note =>{
           return<NoteCard key={note.id} note={note} />
