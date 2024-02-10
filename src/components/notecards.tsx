@@ -5,12 +5,14 @@ import { X } from 'lucide-react'
 
 interface NoteCardProps {
   note: {
+    id: string
     date: Date,
     content: string
   }
+  dellet: (id: string) => void
 }
 
-export function NoteCard({note}: NoteCardProps) {
+export function NoteCard({note, dellet}: NoteCardProps) {
   return(
     <Dialog.Root>
       <Dialog.Trigger className='text-left flex flex-col bg-stone-800 outline-none rounded-md p-5 space-y-3 overflow-hidden relative
@@ -46,6 +48,7 @@ export function NoteCard({note}: NoteCardProps) {
 
               <button
               type='button'
+              onClick={() => dellet(note.id)}
               className="w-full bg-stone-800/40 py-4 outline-none text-center text-sm text-stone-300 font-medium
               hover:bg-stone-800/50 group"> 
                 Deseja <span className="text-red-400 group-hover:font-bold group-hover:underline" >apagar esta nota</span>?
