@@ -6,6 +6,7 @@ export default {
   ],
   theme: {
     extend: {
+
       colors: {
         'purplehaze': '#8257e6',
         'purple': '#3f3cbb',

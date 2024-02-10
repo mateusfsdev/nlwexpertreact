@@ -1,5 +1,5 @@
 import * as Dialog from '@radix-ui/react-dialog'
-import { X, MicOff} from 'lucide-react'
+import { X, Mic} from 'lucide-react'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { toast } from 'sonner'
 
@@ -12,32 +12,46 @@ export function NewNote({ onNoteCreated }: NewNoteCardProps){
   const [isRecording, setIsRecording] = useState(false)
   const [shouldShowOnboarding, setShouldShowOnboarding] = useState(true)
   const [content, setContent] = useState('')
-
-  function handleStartEditor() {
-    setShouldShowOnboarding(false)
-  }
-
+  
   function handleContentChange(event: ChangeEvent<HTMLTextAreaElement>) {
     setContent(event.target.value)
-
+    
     if (event.target.value === '') {
       setShouldShowOnboarding(true)
     }
   }
-
+  
   function handleSaveNote(event: FormEvent) {
     event.preventDefault()
-    onNoteCreated(content)
 
+    if(content === '') {
+      return
+    }
+
+    onNoteCreated(content)
+    
     setContent('')
     setShouldShowOnboarding(true)
-
+    
     toast.success('Nota criada com sucesso!✨')    
+  }
+  
+  function handleStartEditor() {
+    setShouldShowOnboarding(false)
   }
 
   function handleStartRecord(){
     setIsRecording(true)
 
+    const inSpeechRecognitionAPIAvaliable = "SpeechRecognition" in window
+    || "webkitSpeechRecognition" in window
+
+    if(!inSpeechRecognitionAPIAvaliable) {
+      alert('infelizmente seu navegador nao suporta tanta tecnologia assim para gravação ☠☠')
+      return
+    }
+
+    const SpeechRecognitionAPI = window.SpeechRecognition || window.webkitSpeechRecognition
   }
 
   function handleStopRecording(){
@@ -68,7 +82,7 @@ export function NewNote({ onNoteCreated }: NewNoteCardProps){
               
               <form
               className='flex-1 flex flex-col'
-              onSubmit={handleSaveNote}>
+              >
                 <div className="flex flex-1 flex-col gap-3 p-5 ">
                   <span className='text-sm font-medium text-stone-300'>
                     Adicionar nota
@@ -94,14 +108,15 @@ export function NewNote({ onNoteCreated }: NewNoteCardProps){
                     <button
                       type='button'
                       onClick={handleStopRecording}
-                      className=" flex gap-4 justify-center w-full bg-stone-400 py-4 outline-none text-center text-sm text-stone-300 font-medium
-                      hover:text-stone-100 hover:underline"> 
+                      className=" flex gap-4 items-center justify-center w-full bg-stone-400 py-4 outline-none text-center text-sm text-stone-300 font-medium
+                      hover:text-red-600 hover:underline"> 
                         Gravando! (click para interromper)
-                        <MicOff className='size-5' />
+                        <Mic className='size-4 text-red-500 animate-pulse' />
                     </button>
                   ) : (
                     <button
-                      type='submit'
+                      type='button'
+                      onClick={handleSaveNote}
                       className="w-full bg-yellow-400 py-4 outline-none text-center text-sm text-stone-800 font-medium
                       hover:bg-yellow-500 hover:underline"> 
                         Salvar nota
