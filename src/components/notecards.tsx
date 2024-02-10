@@ -4,7 +4,6 @@ import { ptBR } from 'date-fns/locale'
 import { X } from 'lucide-react'
 
 interface NoteCardProps {
-  //props create object
   note: {
     date: Date,
     content: string
