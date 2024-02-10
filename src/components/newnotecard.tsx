@@ -47,7 +47,7 @@ export function NewNote({ onNoteCreated }: NewNoteCardProps){
       </Dialog.DialogTrigger>
 
       
-      <Dialog.DialogPortal>
+        <Dialog.DialogPortal>
           <Dialog.DialogOverlay className="inset-0 fixed bg-stone-950/60">
             <Dialog.Content className="fixed overflow-hidden left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 h-[60vh] max-w-[640px] w-full bg-stone-700 rounded-md flex flex-col aoutline-none">
               <Dialog.Close className="absolute right-0 top-0 bg-stone-600 p-1.5 text-stone-400">
@@ -84,8 +84,8 @@ export function NewNote({ onNoteCreated }: NewNoteCardProps){
                 </button>
               </form>
             </Dialog.Content>
-        </Dialog.DialogOverlay>
-      </Dialog.DialogPortal>
+          </Dialog.DialogOverlay>
+        </Dialog.DialogPortal>
     </Dialog.Root>
   )
 }
