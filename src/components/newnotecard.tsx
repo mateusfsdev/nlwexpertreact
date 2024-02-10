@@ -26,8 +26,11 @@ export function NewNote({ onNoteCreated }: NewNoteCardProps){
   function handleSaveNote(event: FormEvent) {
     event.preventDefault()
     onNoteCreated(content)
-    toast.success('Nota criada com sucesso!✨')
-    
+
+    setContent('')
+    setShouldShowOnboarding(true)
+
+    toast.success('Nota criada com sucesso!✨')    
   }
 
   return(
@@ -69,6 +72,7 @@ export function NewNote({ onNoteCreated }: NewNoteCardProps){
                       autoFocus
                       className='text-sm leading-6 text-stone-400 bg-transparent resize-none flex-1 outline-none'
                       onChange={handleContentChange}
+                      value={content}
                     />
                   )}
                 </div>

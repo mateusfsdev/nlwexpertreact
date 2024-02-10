@@ -5,19 +5,22 @@ import { NewNote } from './components/newnotecard'
 
 import logo from './assets/logo.svg'
 
-export function App() {
-  const [notes, setNotes] = useState([
-    {id: 1, date: new Date(), content: 'hello world'},
-    {id: 2, date: new Date(), content: 'segunda nota'}
-  ])
+interface Note {
+  id: string
+  date: Date
+  content: string
+}
 
+export function App() {
+  const [notes, setNotes] = useState<Note[]>([])
+  
   function onNoteCreated(content: string) {
-    const newNote ={
-      id: Math.random(),
+    const newNote =
+    {
+      id: crypto.randomUUID(),
       date: new Date(),
       content,
     }
-
     setNotes([newNote, ...notes])
   }
 
