@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 
 import { NoteCard } from './components/notecards'
 import { NewNote } from './components/newnotecard'
@@ -12,14 +12,14 @@ interface Note {
 }
 
 export function App() {
+  const [ search, setSearch ] = useState('')
+
   const [notes, setNotes] = useState<Note[]>(() => {
     const noteOnStorage = localStorage.getItem('notes')
 
     if (noteOnStorage) {
       return JSON.parse(noteOnStorage)
     }
-
-
     return[]
   })
   
@@ -38,12 +38,22 @@ export function App() {
     localStorage.setItem('notes', JSON.stringify(notesArray))
   }
 
+  function handleSearch(event: ChangeEvent<HTMLInputElement>) {
+    const query = event.target.value
+
+    setSearch(query)
+  }
+  console.log(search)
+
+  
+
   return (
     <div className='mx-auto max-w-6xl my-12 space-y-6'>
       <img src={logo} alt="Logo site'bloco de notas.voip'" />
 
       <form className='w-full'>
         <input
+          onChange={handleSearch}
           type="text"
           placeholder='busque suas notas...'
           className='w-full bg-transparent text-3xl outline-none font-semibold tracking-tight
