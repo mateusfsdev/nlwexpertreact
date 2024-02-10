@@ -1,5 +1,5 @@
 import * as Dialog from '@radix-ui/react-dialog'
-import { X } from 'lucide-react'
+import { X, MicOff} from 'lucide-react'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { toast } from 'sonner'
 
@@ -8,6 +8,8 @@ interface NewNoteCardProps {
 }
 
 export function NewNote({ onNoteCreated }: NewNoteCardProps){
+
+  const [isRecording, setIsRecording] = useState(false)
   const [shouldShowOnboarding, setShouldShowOnboarding] = useState(true)
   const [content, setContent] = useState('')
 
@@ -33,6 +35,15 @@ export function NewNote({ onNoteCreated }: NewNoteCardProps){
     toast.success('Nota criada com sucesso!✨')    
   }
 
+  function handleStartRecord(){
+    setIsRecording(true)
+
+  }
+
+  function handleStopRecording(){
+    setIsRecording(false)
+  }
+
   return(
     <Dialog.Root>
       <Dialog.DialogTrigger className=' bg-stone-700 flex flex-col rounded-md p-5 gap-3 text-left outline-none 
@@ -55,7 +66,6 @@ export function NewNote({ onNoteCreated }: NewNoteCardProps){
                 hover:text-stone-200" />
               </Dialog.Close>
               
-
               <form
               className='flex-1 flex flex-col'
               onSubmit={handleSaveNote}>
@@ -65,7 +75,10 @@ export function NewNote({ onNoteCreated }: NewNoteCardProps){
                   </span>
                   {shouldShowOnboarding ? (
                     <p className='text-sm leading-6 text-stone-400'>
-                      Comece <button className='font-medium text-yellow-400 hover:underline'>gravando uma nota </button> em auudio, ou se preferir <button onClick={handleStartEditor} className='font-medium text-yellow-400 hover:underline'>utilize apenas texto</button>
+                      Comece &#160;
+                      <button type='button' onClick={handleStartRecord} className='font-medium text-yellow-400 hover:underline'>gravando uma nota </button>
+                      &#160; em audio, ou se preferir &#160;
+                      <button type='button' onClick={handleStartEditor} className='font-medium text-yellow-400 hover:underline'>utilize apenas texto</button>
                     </p>
                   ) : (
                     <textarea
@@ -76,12 +89,26 @@ export function NewNote({ onNoteCreated }: NewNoteCardProps){
                     />
                   )}
                 </div>
-                <button
-                  type='submit'
-                  className="w-full bg-yellow-400 py-4 outline-none text-center text-sm text-stone-800 font-medium
-                  hover:bg-yellow-500 hover:underline"> 
-                    Salvar nota
-                </button>
+                  
+                  {isRecording ? (
+                    <button
+                      type='button'
+                      onClick={handleStopRecording}
+                      className=" flex gap-4 justify-center w-full bg-stone-400 py-4 outline-none text-center text-sm text-stone-300 font-medium
+                      hover:text-stone-100 hover:underline"> 
+                        Gravando! (click para interromper)
+                        <MicOff className='size-5' />
+                    </button>
+                  ) : (
+                    <button
+                      type='submit'
+                      className="w-full bg-yellow-400 py-4 outline-none text-center text-sm text-stone-800 font-medium
+                      hover:bg-yellow-500 hover:underline"> 
+                        Salvar nota
+                    </button>
+                  )}
+
+                
               </form>
             </Dialog.Content>
           </Dialog.DialogOverlay>
