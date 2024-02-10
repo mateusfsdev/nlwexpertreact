@@ -12,6 +12,7 @@ interface Note {
 }
 
 export function App() {
+  
   const [ search, setSearch ] = useState('')
 
   const [notes, setNotes] = useState<Note[]>(() => {
@@ -23,6 +24,10 @@ export function App() {
     return[]
   })
   
+  const filteredNotes = search !== ''
+  ? notes.filter(note => note.content.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
+  : notes
+
   function onNoteCreated(content: string) {
     const newNote =
     {
@@ -40,11 +45,9 @@ export function App() {
 
   function handleSearch(event: ChangeEvent<HTMLInputElement>) {
     const query = event.target.value
-
+    
     setSearch(query)
   }
-  console.log(search)
-
   
 
   return (
@@ -66,7 +69,7 @@ export function App() {
       <div className='grid grid-cols-3 auto-rows-[250px] gap-6'>
         <NewNote onNoteCreated={onNoteCreated}/>
 
-        {notes.map(note =>{
+        {filteredNotes.map(note =>{
           return<NoteCard key={note.id} note={note} />
         })}
       </div>
